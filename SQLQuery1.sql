@@ -1,0 +1,1 @@
+﻿ALTER TABLE MenuItems ADD IsSnack bit NOT NULL DEFAULT 0;

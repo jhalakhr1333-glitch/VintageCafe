@@ -1,0 +1,57 @@
+@model IEnumerable<VintageCafe.Models.Order>
+@{
+    ViewData["Title"] = "Manage Orders";
+    Layout = "_AdminLayout";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">📦 Manage Orders</h2>
+
+    <table class="table table-bordered text-center align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Items</th>
+                <th>Total</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var order in Model)
+            {
+                <tr>
+                    <td>@order.Id</td>
+                    <td>@(order.IsDineIn ? "Dine-In" : "Take-Away")</td>
+                    <td>@order.Status</td>
+                    <td>@order.CreatedAt.ToString("dd MMM yyyy hh:mm tt")</td>
+                    <td class="text-start">
+                        <ul class="list-unstyled">
+                            @foreach (var i in order.Items)
+                            {
+                                <li>@i.MenuItem.Name (x@i.Quantity) — ₹@i.LineTotal</li>
+                            }
+                        </ul>
+                    </td>
+                    <td>₹@order.Total</td>
+                    <td>
+                        @if (order.Status == "Pending")
+                        {
+                            <form method="post" action="/Admin/UpdateOrderStatus">
+                                <input type="hidden" name="id" value="@order.Id" />
+                                <button name="actionType" value="approve" class="btn btn-success btn-sm">Approve</button>
+                                <button name="actionType" value="deny" class="btn btn-danger btn-sm">Deny</button>
+                            </form>
+                        }
+                        else
+                        {
+                            <span class="text-muted">@order.Status</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

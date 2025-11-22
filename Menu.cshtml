@@ -1,0 +1,244 @@
+@{
+    ViewData["Title"] = "Menu";
+    Layout = "_Layout";
+}
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <h2 class="mb-0">Our Menu</h2>
+        <span class="chip">Order Mode: @(ViewBag.Mode ?? "Not Selected")</span>
+    </div>
+
+    <!-- Beverages Section -->
+    <h4 class="mt-4">Beverages</h4>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-3 menu-card">
+                <img src="~/images/foodsimg/Masala Tea.jpeg" class="card-img-top" alt="Masala Tea"
+                     style="height:180px; object-fit:cover;">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Masala Tea</h5>
+                    <p class="price">₹80.00</p>
+                    <button class="btn btn-sm btn-primary add-to-cart" data-id="1">Add to cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card mb-3 menu-card">
+                <img src="~/images/foodsimg/Mojito.jpeg" class="card-img-top" alt="Mojito"
+                     style="height:180px; object-fit:cover;">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Mojito</h5>
+                    <p class="price">₹160.00</p>
+                    <button class="btn btn-sm btn-primary add-to-cart" data-id="2">Add to cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Coffee Section -->
+    <h4 class="mt-4">Coffee</h4>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-3 menu-card">
+                <img src="~/images/foodsimg/Latte.jpeg" class="card-img-top" alt="Latte"
+                     style="height:180px; object-fit:cover;">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Latte</h5>
+                    <p class="price">₹150.00</p>
+                    <button class="btn btn-sm btn-primary add-to-cart" data-id="3">Add to cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card mb-3 menu-card">
+                <img src="~/images/foodsimg/Espresso.jpeg" class="card-img-top" alt="Espresso"
+                     style="height:180px; object-fit:cover;">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Espresso</h5>
+                    <p class="price">₹130.00</p>
+                    <button class="btn btn-sm btn-primary add-to-cart" data-id="4">Add to cart</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card mb-3 menu-card">
+                <img src="~/images/foodsimg/Cappuccino.jpeg" class="card-img-top" alt="Cappuccino"
+                     style="height:180px; object-fit:cover;">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Cappuccino</h5>
+                    <p class="price">₹140.00</p>
+                    <button class="btn btn-sm btn-primary add-to-cart" data-id="5">Add to cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Snacks Section -->
+    <h4 class="mt-4">Snacks</h4>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-3 menu-card">
+                <img src="~/images/foodsimg/Vegsandwich.jpeg" class="card-img-top" alt="Veg Sandwich"
+                     style="height:180px; object-fit:cover;">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Veg Sandwich</h5>
+                    <p class="price">₹120.00</p>
+                    <button class="btn btn-sm btn-primary add-to-cart" data-id="6">Add to cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Desserts Section -->
+    <h4 class="mt-4">Desserts</h4>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-3 menu-card">
+                <img src="~/images/foodsimg/Brownie.jpeg" class="card-img-top" alt="Brownie"
+                     style="height:180px; object-fit:cover;">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Brownie</h5>
+                    <p class="price">₹180.00</p>
+                    <button class="btn btn-sm btn-primary add-to-cart" data-id="7">Add to cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<!-- ✅ Welcome Popup -->
+@if (TempData["WelcomeName"] != null)
+{
+    <script>
+        Swal.fire({
+            title: 'Welcome, @TempData["WelcomeName"]! ☕',
+            text: 'Enjoy exploring our delicious menu!',
+            icon: 'success',
+            showConfirmButton: false,
+            timer: 2200,
+            background: '#fff8f0',
+            color: '#5b3a22',
+            backdrop: `rgba(91, 58, 34, 0.15)`
+        });
+    </script>
+}
+
+<!-- ✅ Ask Order Mode Popup -->
+@if (TempData["AskOrderMode"] != null)
+{
+    <script>
+        Swal.fire({
+            title: 'How would you like to order?',
+            text: 'Choose your preferred dining option.',
+            icon: 'question',
+            showDenyButton: true,
+            confirmButtonText: 'Dine-In',
+            denyButtonText: 'Take-Away',
+            confirmButtonColor: '#8b5e34',
+            denyButtonColor: '#6b3e26'
+        }).then((result) => {
+            let mode = '';
+            if (result.isConfirmed) mode = 'DineIn';
+            else if (result.isDenied) mode = 'TakeAway';
+            if (mode !== '') {
+                fetch('/Cafe/SetMode', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: 'mode=' + encodeURIComponent(mode)
+                }).then(() => location.reload());
+            }
+        });
+    </script>
+}
+
+<script>
+    document.querySelectorAll('.add-to-cart').forEach(btn => {
+        btn.addEventListener('click', async () => {
+            const id = btn.getAttribute('data-id');
+            try {
+                const resp = await fetch('/Cafe/AddToCart', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: 'id=' + encodeURIComponent(id)
+                });
+                const data = await resp.json();
+
+                if (data.loginRequired) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Login Required',
+                        text: 'Please log in before adding items to your cart.',
+                        showCancelButton: true,
+                        confirmButtonText: 'Go to Login',
+                        cancelButtonText: 'Cancel',
+                        confirmButtonColor: '#8b5e34'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = '/Account/Login';
+                        }
+                    });
+                } else if (data.ok) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Item added to cart',
+                        text: 'What would you like to do next?',
+                        showCancelButton: true,
+                        confirmButtonText: 'Go to Cart',
+                        cancelButtonText: 'Continue Shopping',
+                        confirmButtonColor: '#8b5e34',
+                        cancelButtonColor: '#6c757d'
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            window.location.href = '/Cafe/Cart';
+                        }
+                    });
+                } else {
+                    Swal.fire('Oops', 'Could not add the item. Try again.', 'error');
+                }
+            } catch (err) {
+                Swal.fire('Error', 'Network error adding to cart.', 'error');
+            }
+        });
+    });
+</script>
+
+<style>
+    .menu-card {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        border-radius: 14px;
+        overflow: hidden;
+        transition: transform 0.2s ease-in-out;
+    }
+
+        .menu-card:hover {
+            transform: scale(1.03);
+        }
+
+    .price {
+        font-weight: bold;
+        color: #6b3e26;
+    }
+
+    .btn-primary {
+        background-color: #8b5e34;
+        border: none;
+    }
+
+        .btn-primary:hover {
+            background-color: #6b3e26;
+        }
+
+    .chip {
+        background-color: #f5e3d3;
+        color: #5b3a22;
+        padding: 6px 14px;
+        border-radius: 20px;
+        font-weight: 500;
+    }
+</style>

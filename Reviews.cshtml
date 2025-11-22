@@ -1,0 +1,30 @@
+﻿@model IEnumerable<VintageCafe.Models.Review>
+@{
+    ViewData["Title"] = "Customer Reviews";
+    Layout = "_AdminLayout";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">💬 Customer Reviews</h2>
+    @if (!Model.Any())
+    {
+        <div class="alert alert-info text-center">No reviews yet ☕</div>
+    }
+    else
+    {
+        <table class="table table-bordered text-center">
+            <thead class="table-dark"><tr><th>User</th><th>Rating</th><th>Comment</th><th>Date</th></tr></thead>
+            <tbody>
+                @foreach (var r in Model)
+                {
+                    <tr>
+                        <td>@r.UserName</td>
+                        <td>@r.Rating ⭐</td>
+                        <td>@r.Comment</td>
+                        <td>@r.CreatedAt.ToString("dd MMM yyyy")</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>

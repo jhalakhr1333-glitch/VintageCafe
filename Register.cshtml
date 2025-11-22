@@ -1,0 +1,61 @@
+﻿@model VintageCafe.Models.User
+@{
+    ViewData["Title"] = "Register";
+    Layout = "_Layout";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%; border-radius: 16px;">
+        <h3 class="text-center mb-3" style="color: #8b5e34;">☕ Create Account</h3>
+        <p class="text-center text-muted">Join us and start your order!</p>
+
+        <form asp-action="Register" method="post">
+            <div class="mb-3">
+                <label>Name</label>
+                <input asp-for="Name" class="form-control" placeholder="Enter your name" required />
+            </div>
+            <div class="mb-3">
+                <label>Email</label>
+                <input asp-for="Email" class="form-control" placeholder="Enter your email" required />
+            </div>
+            <div class="mb-3">
+                <label>Password</label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Enter password" required />
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Register</button>
+        </form>
+
+        <div class="text-center mt-3">
+            <small>Already have an account? <a href="/Account/Login" class="text-decoration-none" style="color:#8b5e34;">Login here</a></small>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if (TempData["Success"] != null)
+{
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Registration Successful!',
+            text: '@TempData["Success"]',
+            confirmButtonColor: '#8b5e34'
+        }).then(() => {
+            window.location.href = '/Account/Login';
+        });
+    </script>
+}
+
+@if (TempData["Error"] != null)
+{
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Registration Failed',
+            text: '@TempData["Error"]',
+            confirmButtonColor: '#8b5e34'
+        });
+    </script>
+}

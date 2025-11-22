@@ -1,0 +1,98 @@
+@model IEnumerable<VintageCafe.Models.MenuItem>
+@{
+    ViewData["Title"] = "Manage Menu";
+    Layout = "_Layout";
+}
+
+<div class="container mt-4">
+    <h2 class="text-center mb-4">🍴 Manage Menu</h2>
+
+    @if (TempData["Msg"] != null)
+    {
+        <div class="alert alert-success">@TempData["Msg"]</div>
+    }
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    <form method="post" action="/Admin/AddMenu" class="row g-3 align-items-center">
+        <div class="col-md-3">
+            <input class="form-control" name="name" placeholder="Name" required />
+        </div>
+        <div class="col-md-2">
+            <input class="form-control" type="number" name="price" step="0.01" placeholder="Price" required />
+        </div>
+        <div class="col-md-2">
+            <input class="form-control" name="category" placeholder="Category" />
+        </div>
+        <div class="col-md-2">
+            <select class="form-select" name="isSnack">
+                <option value="false">Drink</option>
+                <option value="true">Snack</option>
+            </select>
+        </div>
+        <div class="col-md-3">
+            <input class="form-control" name="imagePath" placeholder="/images/foodsimg/xyz.jpg" />
+        </div>
+        <div class="col-md-12 text-end">
+            <button class="btn btn-success px-4">+ Add Item</button>
+        </div>
+    </form>
+
+    <hr />
+
+    <table class="table table-bordered table-hover text-center align-middle mt-3">
+        <thead class="table-dark">
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Type</th>
+                <th>Price (₹)</th>
+                <th>Image</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var it in Model)
+            {
+                <tr>
+                    <td>@it.Name</td>
+                    <td>@it.Category</td>
+                    <td>@(it.IsSnack ? "Snack" : "Drink")</td>
+                    <td>@it.Price</td>
+                    <td>
+                        <img src="@it.ImagePath" style="height:45px;width:60px;object-fit:cover;border-radius:6px;" />
+                    </td>
+                    <td>
+                        <form method="post" action="/Admin/RemoveMenu" onsubmit="return confirm('Are you sure you want to remove this item?');">
+                            <input type="hidden" name="id" value="@it.Id" />
+                            <button type="submit" class="btn btn-danger btn-sm">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="text-center mt-3">
+        <a href="/Admin/Dashboard" class="btn btn-secondary">⬅ Back to Dashboard</a>
+    </div>
+</div>
+
+<style>
+    h2 {
+        color: #5b3a22;
+        font-weight: bold;
+    }
+
+    .btn-success {
+        background-color: #8b5e34;
+        border: none;
+    }
+
+        .btn-success:hover {
+            background-color: #6b3e26;
+        }
+</style>

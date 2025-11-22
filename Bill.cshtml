@@ -1,0 +1,30 @@
+
+@model VintageCafe.Models.Order
+@{
+    ViewData["Title"]="Bill";
+    Layout = "_Layout";
+}
+<div class="card p-3">
+<div class="text-center mb-2">
+  <img src="/images/foodsimg/logo.png" alt="VintageCafe" style="height:60px; width:auto;" />
+  <div class="logo">VINTAGE CAFÉ</div>
+  <div>Your Cozy Coffee Spot</div>
+</div>
+<h3>Bill #@Model.Id</h3>
+<p>Date: @Model.CreatedAt.ToLocalTime() • @(Model.IsDineIn ? "Dine-In" : "Take-Away")</p>
+<table class="table">
+  <thead><tr><th>Item</th><th>Qty</th><th>Line</th></tr></thead>
+  <tbody>
+  @foreach(var it in Model.Items){
+    <tr><td>@it.MenuItem?.Name</td><td>@it.Quantity</td><td>₹@it.LineTotal</td></tr>
+  }
+  </tbody>
+  <tfoot>
+    <tr><th colspan="2">Sub Total</th><th>₹@Model.SubTotal</th></tr>
+    <tr><th colspan="2">GST (5%)</th><th>₹@Model.GST</th></tr>
+    <tr><th colspan="2">Total</th><th>₹@Model.Total</th></tr>
+  </tfoot>
+</table>
+<a class="btn btn-primary" href="/Cafe/Start">Back to Start</a>
+<a class="btn btn-outline-secondary" href="/Cafe/History">View History</a>
+</div>

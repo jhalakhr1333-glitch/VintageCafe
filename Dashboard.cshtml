@@ -1,0 +1,34 @@
+﻿@{
+    ViewData["Title"] = "Admin Dashboard";
+    Layout = "_AdminLayout";
+}
+<div class="container mt-4">
+    <h2 class="text-center mb-4">📊 Dashboard Overview</h2>
+
+    <div class="row text-center">
+        <div class="col-md-3">
+            <div class="card p-3 border-success">
+                <h5>☕ Dine-In</h5>
+                <h3 class="text-success">@ViewBag.DineIn</h3>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card p-3 border-warning">
+                <h5>🥡 Take-Away</h5>
+                <h3 class="text-warning">@ViewBag.TakeAway</h3>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card p-3 border-info">
+                <h5>💰 Sales</h5>
+                <h3 class="text-info">₹@ViewBag.TotalSales</h3>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card p-3 border-primary">
+                <h5>📋 Menu Items</h5>
+                <h3 class="text-primary">@ViewBag.TotalMenu</h3>
+            </div>
+        </div>
+    </div>
+</div>

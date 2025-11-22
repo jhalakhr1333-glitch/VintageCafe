@@ -1,0 +1,58 @@
+﻿@model VintageCafe.Models.User
+@{
+    ViewData["Title"] = "Login";
+    Layout = "_Layout";
+}
+
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow-lg p-4" style="max-width: 400px; width: 100%; border-radius: 16px;">
+        <h3 class="text-center mb-3" style="color: #8b5e34;">☕ Welcome Back!</h3>
+        <p class="text-center text-muted">Login to continue your order</p>
+
+        <form asp-action="Login" method="post">
+            <div class="mb-3">
+                <label>Email</label>
+                <input asp-for="Email" class="form-control" placeholder="Enter your email" required />
+            </div>
+
+            <div class="mb-3">
+                <label>Password</label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="Enter your password" required />
+            </div>
+
+            <button type="submit" class="btn btn-primary w-100">Login</button>
+        </form>
+
+        <div class="text-center mt-3">
+            <small>Don't have an account? <a href="/Account/Register" class="text-decoration-none" style="color:#8b5e34;">Register here</a></small>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+@if (TempData["LoginSuccess"] != null)
+{
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: 'Login Successful!',
+            text: '@TempData["LoginSuccess"]',
+            confirmButtonColor: '#8b5e34'
+        }).then(() => {
+            window.location.href = '/Cafe/Menu';
+        });
+    </script>
+}
+
+@if (TempData["Error"] != null)
+{
+    <script>
+        Swal.fire({
+            icon: 'error',
+            title: 'Login Failed',
+            text: '@TempData["Error"]',
+            confirmButtonColor: '#8b5e34'
+        });
+    </script>
+}
